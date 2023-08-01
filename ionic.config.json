@@ -1,0 +1,7 @@
+{
+  "name": "appwizard",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

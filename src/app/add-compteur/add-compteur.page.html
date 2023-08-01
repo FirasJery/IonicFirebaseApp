@@ -1,0 +1,24 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>addCompteur</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <div>
+    <h2>Add a Compteur</h2>
+    <form (submit)="onSubmit()">
+      <div>
+        <label for="longInput">Longitude:</label>
+        <input type="text" id="longInput" [(ngModel)]="compteur.long" name="long" required>
+      </div>
+      <div>
+        <label for="latInput">Latitude:</label>
+        <input type="text" id="latInput" [(ngModel)]="compteur.lat" name="lat" required>
+      </div>
+      <button type="submit">Add Compteur</button>
+    </form>
+  </div>
+
+</ion-content>

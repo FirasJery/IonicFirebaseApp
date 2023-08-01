@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <ion-item lines="none">
+      <ion-icon name="person" slot="start"></ion-icon>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-icon name="lock-closed" slot="start"></ion-icon>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+
+    <ion-button class="ion-margin-top" expand="full" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+
+    <div class="ion-text-center">
+      <p>Forgot your password? <a href="#">Reset here</a></p>
+      <p>Don't have an account? <a (click)="goToSignUp()">Sign Up</a></p>
+    </div>
+  </form>
+</ion-content>
