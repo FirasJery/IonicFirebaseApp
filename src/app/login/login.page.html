@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <ion-item lines="none">
+      <ion-icon name="person" slot="start"></ion-icon>
+
+      <ion-input label="Email" label-placement="floating" error-text="Email not valid ! " formControlName="email" type="email"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-icon name="lock-closed" slot="start"></ion-icon>
+
+      <ion-input label="Password"  label-placement="floating" error-text="Password too short ! " formControlName="password" type="password"></ion-input>
+    </ion-item>
+
+    <ion-button class="ion-margin-top" expand="full" type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+
+    <div class="ion-text-center">
+      <p>Don't have an account? <a (click)="goToSignUp()">Sign Up</a></p>
+    </div>
+  </form>
+</ion-content>

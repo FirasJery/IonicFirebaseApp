@@ -1,0 +1,22 @@
+/* Center the content vertically and horizontally */
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ensure the container takes up the full viewport height */
+}
+
+/* Center the button vertically within its parent div */
+.center-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure the div takes up full height */
+}
+
+/* Style for the button */
+.camera-button {
+  font-size: 24px; /* Adjust the font size to make the button bigger */
+}

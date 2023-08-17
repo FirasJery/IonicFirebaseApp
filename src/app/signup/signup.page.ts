@@ -1,45 +1,68 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.scss'],
 })
-
 export class SignupPage implements OnInit {
-  user = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: ''
-  };
+  credentials: FormGroup;
 
-  constructor(private afAuth: AngularFireAuth) { }
-
-  ngOnInit() {
+  constructor(	private fb: FormBuilder,
+                private loadingController: LoadingController,
+                private alertController: AlertController,
+                private authService: AuthService,
+                private router: Router) {
+    this.credentials = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
 
-  async onSubmit() {
-    try {
-      // Register the user with Firebase Auth
-      const userCredential = await this.afAuth.createUserWithEmailAndPassword(this.user.email, this.user.password);
-      if (userCredential?.user) {
-        await userCredential.user.updateProfile({
-          displayName: `${this.user.firstName} ${this.user.lastName}`,
+  get email() {
+    return this.credentials.get('email');
+  }
 
-        });
+  get password() {
+    return this.credentials.get('password');
+  }
+  ngOnInit() {
+
+  }
+
+  async register() {
+    const loading = await this.loadingController.create();
+    await loading.present();
+
+    const emailControl = this.credentials.get('email');
+    const passwordControl = this.credentials.get('password');
+
+    if (emailControl && passwordControl) {
+      const email = emailControl.value;
+      const password = passwordControl.value;
+
+      const user = await this.authService.register(email, password);
+      await loading.dismiss();
+
+      if (user) {
+        this.router.navigateByUrl('/home', {replaceUrl: true});
+      } else {
+        this.showAlert('Registration failed', 'Please try again!');
       }
-
-
-
-    } catch (error) {
-      // Handle any errors that occur during registration
-      console.error("Error registering user:", error);
-      alert("Error registering user. Please try again.");
     }
   }
 
-
+  async showAlert(header : string , message : string) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 
 }

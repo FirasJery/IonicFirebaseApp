@@ -1,28 +1,40 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { redirectUnauthorizedTo, redirectLoggedInTo, canActivate } from '@angular/fire/auth-guard';
 
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
+const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 const routes: Routes = [
   {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
+  },
+  {
     path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+    ...canActivate(redirectLoggedInToHome)
   },
   {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
+    path: 'modal',
+    loadChildren: () => import('./modal/modal.module').then( m => m.ModalPageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
   },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
-  },
+
   {
     path: 'signup',
     loadChildren: () => import('./signup/signup.module').then( m => m.SignupPageModule)
   },
   {
-    path: 'add-compteur',
-    loadChildren: () => import('./add-compteur/add-compteur.module').then( m => m.AddCompteurPageModule)
-  }
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+    ...canActivate(redirectUnauthorizedToLogin)
+  },
+  {
+    path: 'pictures',
+    loadChildren: () => import('./pictures/pictures.module').then( m => m.PicturesPageModule)
+  },
 ];
 
 @NgModule({
@@ -31,4 +43,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

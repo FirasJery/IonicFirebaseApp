@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title> Home </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+  <div>
+    <ion-segment [(ngModel)]="selectedFilter" (ionChange)="filterCompteurs()">
+      <ion-segment-button value="all">
+        All
+      </ion-segment-button>
+      <ion-segment-button value="done">
+        Done
+      </ion-segment-button>
+      <ion-segment-button value="undone">
+        Undone
+      </ion-segment-button>
+    </ion-segment>
+
+    <br><br>
+  </div>
+  <div>
+    <ion-list>
+      <ion-card class="custom-card" *ngFor="let compteur of filteredCompteurs " (click)="openNote(compteur)">
+        <ion-card-header>{{ compteur.Owner }}</ion-card-header>
+        <ion-card-content>
+        <ion-thumbnail class="custom-thumbnail" *ngIf="hasImage(compteur)">
+          <img [src]="getImageUrl(compteur) "  alt="pic not found"/>
+        </ion-thumbnail>
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
+
+
+
+</ion-content>
+
+<ion-footer>
+
+
+  <ion-fab  vertical="bottom" horizontal="end">
+    <ion-fab-button  id="open-action-sheet" >
+      <ion-icon name="settings-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-action-sheet trigger="open-action-sheet" header="Settings" [buttons]="actionSheetButtons"></ion-action-sheet>
+</ion-footer>
+
+
+
+
+
+
