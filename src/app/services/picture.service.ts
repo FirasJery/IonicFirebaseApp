@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Auth} from "@angular/fire/auth";
-import {collection, collectionData, Firestore} from "@angular/fire/firestore";
+import {collection, collectionData, Firestore , Timestamp} from "@angular/fire/firestore";
 import { doc, docData, setDoc } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage, uploadString } from '@angular/fire/storage';
 import { Photo } from '@capacitor/camera';
 import {Observable} from "rxjs";
-import {Compteur} from "./compteur.model";
+import { Picture } from "./picture.model";
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +47,8 @@ export class PictureService {
 
   }
 
-  getAllPictures(): Observable<any[]> {
+  getAllPictures(): Observable<Picture[]> {
     const psRef = collection(this.firestore, 'pictures');
-    return collectionData(psRef, { idField: 'id'}) as Observable<Compteur[]>;
-    
+    return collectionData(psRef, { idField: 'id' }) as Observable<Picture[]>;
   }
 }

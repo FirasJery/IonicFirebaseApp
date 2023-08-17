@@ -33,7 +33,7 @@ export class PicturesPage implements OnInit {
       quality: 90,
       allowEditing: false,
       resultType: CameraResultType.Base64,
-      source: CameraSource.Camera });// Camera, Photos, or Prompt!
+      source: CameraSource.Camera });
 
     if (image) {
       const loading = await this.loadingController.create();
@@ -43,7 +43,7 @@ export class PicturesPage implements OnInit {
       loading.dismiss();
 
       if (result) {
-        this.takenImage = result; // Set the image URL
+        this.takenImage = result;
 
       } else {
         const alert = await this.alertController.create({

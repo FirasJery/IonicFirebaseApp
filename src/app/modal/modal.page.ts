@@ -29,8 +29,6 @@ export class ModalPage implements OnInit {
   }
 
   AddPic() {
-
-
     this.router.navigate(['/pictures'] , { queryParams: { id: this.id } });
     this.Mc.dismiss();
   }

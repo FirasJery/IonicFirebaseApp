@@ -41,15 +41,13 @@ export class HomePage implements OnInit {
 
     this.dataService.getCompteurByUserID(uid).subscribe(res => {
       this.compteurs = res;
-      // After fetching data, apply the filter
       this.filterCompteurs();
     });
 
     this.Picservice.getAllPictures().subscribe(res => {
       this.pictures = res;
-      // After fetching data, apply the filter
-      this.filterCompteurs();
     });
+    this.pictures.forEach(e => console.log(e.date));
   }
 
   filterCompteurs() {
@@ -66,12 +64,26 @@ export class HomePage implements OnInit {
   }
 
   hasImage(c : Compteur) {
-    return this.pictures.some(image => image.counterId === c.id);
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    const currentYear = currentDate.getFullYear();
+
+    const pic = this.pictures.find(image =>
+      image.counterId === c.id  &&
+      image.date.toDate().getMonth() + 1 === currentMonth &&
+      image.date.toDate().getFullYear() === currentYear
+
+    );
+    return !!pic;
+
   }
 
    getImageUrl(c : Compteur) {
-    const pic = this.pictures.find(image => image.counterId === c.id);
-    return pic ? pic.imageUrl : '';
+     const pic = this.pictures.find(image =>
+       image.counterId === c.id
+
+     );
+     return pic ? pic.imageUrl : '';
   }
 
   async addNote() {

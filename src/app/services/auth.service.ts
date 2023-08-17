@@ -21,15 +21,12 @@ export class AuthService {
       const user = userCredential.user;
 
       if (user && user.email && user.uid) {
-        // Create a new User object and fill it with data from user.user
         const u: User = {
           id: user.uid,
-          firstName: '', // Add first name data if available
-          lastName: '', // Add last name data if available
+          firstName: '',
+          lastName: '',
           email: user.email,
         };
-
-        // Add the new user data to the "users" collection in Firestore
         const userDocRef = collection(this.firestore, 'users');
         await addDoc(userDocRef, u);
 

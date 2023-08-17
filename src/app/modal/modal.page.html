@@ -19,16 +19,17 @@
     </ion-button>
 
     <ng-container *ngIf="hasImage; else noImage">
-    <ion-button expand="block" class="button" (click)="AddPic()">
-      <ion-icon slot="start" name="camera"></ion-icon>
-      Add image
-    </ion-button>
-    </ng-container>
-
-    <ng-template #noImage>
       <div class="no-image-label">
         There's a picture for this month.
       </div>
+
+    </ng-container>
+
+    <ng-template #noImage>
+      <ion-button expand="block" class="button" (click)="AddPic()">
+        <ion-icon slot="start" name="camera"></ion-icon>
+        Add image
+      </ion-button>
     </ng-template>
   </div>
 </ion-content>
